@@ -1,0 +1,7 @@
+.content {
+   grid-area: n;
+   background: rgb(249, 255, 194);
+   border: 3px solid rgb(94, 129, 170);
+   border-radius: 20px;
+   min-height: 300px;
+}

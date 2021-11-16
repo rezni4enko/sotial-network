@@ -1,0 +1,23 @@
+.wrapperMessages {
+   display: grid;
+   grid-template-columns: 2fr 10fr;
+   height: 100%;
+}
+.dialogs {
+   padding: 10px;
+}
+.dialog {
+   color: #000;
+}
+.dialogs.active {
+   color: gold;
+}
+.messages {
+   padding: 10px;
+}
+.message {
+}
+.textarea {
+   position: relative;
+   top: 100px;
+}
