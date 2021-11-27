@@ -21,6 +21,7 @@ const Content = (props) => {
       <div>Text post</div>
       <textarea onChange={onPostChange} value={props.profilePage.newPostText} ref={newPostElement} />
       <div><button onClick={onAddPost}>Add post</button></div>
+
       {posts}
 
    </section>

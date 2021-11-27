@@ -11,7 +11,7 @@ const Messages = (props) => {
 
    let onChangeMessage = (e) => {
       let text = e.target.value
-      props.updateNewMessageChange(text)
+      props.changeMessage(text)
    }
 
    return (
@@ -26,7 +26,7 @@ const Messages = (props) => {
                <textarea value={props.dialogPage.newMessageText}
                   onChange={onChangeMessage} />
                <div>
-                  <button onClick={(props.onSendMessage)}>Add message</button>
+                  <button onClick={(props.sendMessage)}>Add message</button>
                </div>
             </div>
          </div>

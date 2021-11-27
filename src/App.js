@@ -8,26 +8,32 @@ import MessagesContainer from './Components/Messages/MessagesContainer';
 import ContentContainer from './Components/Content/ContentContainer';
 
 
+
 function App(props) {
 
   return (
-    <BrowserRouter>
+
+    <BrowserRouter BrowserRouter >
+
       <div className="App">
         <Header />
         <Nav />
         <div className='app-wrapper-content'>
           <Route path='/profile'
             render={() => <ContentContainer
-              profilePage={props.state.profilePage}
-              dispatch={props.dispatch} />} />
+            // profilePage={props.state.profilePage}
+            // dispatch={props.dispatch}
+            />} />
           <Route path='/messages'
             render={() => (<MessagesContainer
-              dialogPage={props.state.dialogPage}
-              dispatch={props.dispatch} />)} />
+            // dialogPage={props.state.dialogPage}
+            // dispatch={props.dispatch}
+            />)} />
           <Route path='/music' render={() => <Music />} />
         </div>
       </div>
-    </BrowserRouter>
+
+    </BrowserRouter >
   );
 }
 
