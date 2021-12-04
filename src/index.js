@@ -11,11 +11,7 @@ let showRender = (state) => (
    ReactDOM.render(
       <React.StrictMode>
          <Provider store={store}>
-            <App
-            //  state={state}
-            //    dispatch={store.dispatch.bind(store)}
-            //    store={store}
-            />
+            <App />
          </Provider>,
       </React.StrictMode>,
       document.getElementById('root')
@@ -24,7 +20,4 @@ let showRender = (state) => (
 
 showRender(store.getState());
 
-// store.subscribe(() => {
-//    let state = store.getState();
-//    showRender(state);
-// });
+

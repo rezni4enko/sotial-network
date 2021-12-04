@@ -6,6 +6,7 @@ import Music from './Components/Musik/Music';
 import { BrowserRouter, Route } from 'react-router-dom';
 import MessagesContainer from './Components/Messages/MessagesContainer';
 import ContentContainer from './Components/Content/ContentContainer';
+import UsersContainer from './Components/Users/UsersContainer';
 
 
 
@@ -20,15 +21,11 @@ function App(props) {
         <Nav />
         <div className='app-wrapper-content'>
           <Route path='/profile'
-            render={() => <ContentContainer
-            // profilePage={props.state.profilePage}
-            // dispatch={props.dispatch}
-            />} />
+            render={() => <ContentContainer />} />
           <Route path='/messages'
-            render={() => (<MessagesContainer
-            // dialogPage={props.state.dialogPage}
-            // dispatch={props.dispatch}
-            />)} />
+            render={() => (<MessagesContainer />)} />
+          <Route path='/users'
+            render={() => (<UsersContainer />)} />
           <Route path='/music' render={() => <Music />} />
         </div>
       </div>
