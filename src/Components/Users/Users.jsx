@@ -1,58 +1,56 @@
 import React from "react";
 import r from './Users.module.css';
+import userPhoto from '../../img/avatarka-dlya-skaypa-dlya-parney.jpg';
+import { NavLink } from 'react-router-dom';
+
 
 const Users = (props) => {
-   debugger
-   if (props.usersData.length === 0) {
-      debugger
-      props.setUsers([
-         {
-            id: 1, photoUrl: 'https://redkrab.ru/media/5803/5-starbucks.jpg',
-            name: 'Dima K', followed: false, status: 'I am a boss', city: 'Minsk', country: 'Belarus'
-         },
-         {
-            id: 2, photoUrl: 'https://redkrab.ru/media/5803/5-starbucks.jpg',
-            name: 'Lena K', followed: false, status: 'I am a boss', city: 'Minsk', country: 'Belarus'
-         },
-         {
-            id: 3, photoUrl: 'https://redkrab.ru/media/5803/5-starbucks.jpg',
-            name: 'Olga K', followed: true, status: 'I am a boss', city: 'Gomel', country: 'Belarus'
-         },
-         {
-            id: 4, photoUrl: 'https://redkrab.ru/media/5803/5-starbucks.jpg',
-            name: 'Vova K', followed: false, status: 'I am a boss', city: 'Brest', country: 'Belarus'
-         },
-         {
-            id: 5, photoUrl: 'https://redkrab.ru/media/5803/5-starbucks.jpg',
-            name: 'Oleg K', followed: true, status: 'I am a boss', city: 'Grodno', country: 'Belarus'
-         }])
+
+   let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
+   let pages = []
+   let pagesFive = []
+   for (let i = 1; i <= pagesCount; i++) {
+      pages = [...pages, i]
+      if (i <= 5) pagesFive = [...pagesFive, i]
    }
 
+
    return (<div>
-      {props.usersData.map(u => (
-         <div className={r.wrapper}>
-            <div className={r.profile}>
-               <img src={u.photoUrl} alt="" />
-               <div>
-                  {u.followed
-                     ? <button onClick={() => { props.unfollow(u.id) }}>follow</button>
-                     : <button onClick={() => { props.follow(u.id) }}>unfollow</button>}
+      <div>
+         {pagesFive.map(p => {
+            return <span className={props.currentPage === p && r.selectedPage}
+               onClick={(e) => { props.onPageChanged(p) }}>{p}</span>
+         })}
+
+      </div>
+      {
+         props.usersData.map(u => (
+            <div className={r.wrapper}>
+               <div className={r.profile}>
+                  <NavLink to={'/profile/' + u.id}>
+                     <img src={u.photos.small != null ? u.photos.small : userPhoto} alt="" />
+                  </NavLink>
+                  <div>
+                     {u.followed
+                        ? <button onClick={() => { props.unfollow(u.id) }}>follow</button>
+                        : <button onClick={() => { props.follow(u.id) }}>unfollow</button>}
+                  </div>
+               </div>
+               <div className={r.message}>
+                  <div>{u.name}</div>
+                  <div>
+                     <span>{u.city}, </span>
+                     <span>{u.country}</span>
+                  </div>
+                  <div>{u.status}</div>
                </div>
             </div>
-            <div className={r.message}>
-               <div>{u.name}</div>
-               <div>
-                  <span>{u.city}, </span>
-                  <span>{u.country}</span>
-               </div>
-               <div>{u.status}</div>
-            </div>
-         </div>
-      ))}
+         ))
+      }
 
-   </div>
+   </div >)
 
-   )
 }
+
 
 export default Users;

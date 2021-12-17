@@ -1,12 +1,8 @@
 import React from 'react';
-import Post from './Post/Post.jsx';
-import c from './Content.module.css';
+import c from '../Profile.module.css';
 
 
-const Content = (props) => {
-
-   let newPostElement = React.createRef();
-   let posts = props.profilePage.postsData.map(p => (<Post name={p.name} message={p.message} likesCount={p.likesCount} />));
+const ProfileInfo = (props) => {
 
    let onAddPost = () => {
       props.addPost()
@@ -16,16 +12,16 @@ const Content = (props) => {
       props.postChange(text)
    }
 
+   let newPostElement = React.createRef();
+
    return <section className={c.Content}>
       <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpyO-nsN65huml58cFmd5lQ8rX7lVTgmu08Q&usqp=CAU' />
       <div>Text post</div>
       <textarea onChange={onPostChange} value={props.profilePage.newPostText} ref={newPostElement} />
       <div><button onClick={onAddPost}>Add post</button></div>
 
-      {posts}
-
    </section>
 
 }
 
-export default Content;
+export default ProfileInfo;

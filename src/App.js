@@ -5,8 +5,9 @@ import Nav from './Components/Nav/Nav.jsx';
 import Music from './Components/Musik/Music';
 import { BrowserRouter, Route } from 'react-router-dom';
 import MessagesContainer from './Components/Messages/MessagesContainer';
-import ContentContainer from './Components/Content/ContentContainer';
+import ProfileContainer from './Components/Profile/ProfileContainer';
 import UsersContainer from './Components/Users/UsersContainer';
+import Profile from './Components/Profile/Profile';
 
 
 
@@ -21,7 +22,7 @@ function App(props) {
         <Nav />
         <div className='app-wrapper-content'>
           <Route path='/profile'
-            render={() => <ContentContainer />} />
+            render={() => <ProfileContainer />} />
           <Route path='/messages'
             render={() => (<MessagesContainer />)} />
           <Route path='/users'

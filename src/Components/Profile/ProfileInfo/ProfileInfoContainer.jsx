@@ -1,6 +1,6 @@
-import { addNewPostActionCreator, updateNewPostChangeActionCreator } from '../../redux/profileReducer';
-import Content from './Content';
+import { addNewPostActionCreator, updateNewPostChangeActionCreator } from '../../../redux/profileReducer';
 import { connect } from "react-redux";
+import ProfileInfo from './ProfileInfo';
 
 
 const mapStateToProps = (state) => {
@@ -20,6 +20,6 @@ const mapDispatchToProps = (dispatch) => {
    }
 }
 
-const ContentContainer = connect(mapStateToProps, mapDispatchToProps)(Content);
+const ProfileInfoContainer = connect(mapStateToProps, mapDispatchToProps)(ProfileInfo);
 
-export default ContentContainer;
+export default ProfileInfoContainer;
