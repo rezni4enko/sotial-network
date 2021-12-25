@@ -2,6 +2,7 @@ import React from "react";
 import r from './Users.module.css';
 import userPhoto from '../../img/avatarka-dlya-skaypa-dlya-parney.jpg';
 import { NavLink } from 'react-router-dom';
+import * as axios from 'axios';
 
 
 const Users = (props) => {
@@ -32,8 +33,37 @@ const Users = (props) => {
                   </NavLink>
                   <div>
                      {u.followed
-                        ? <button onClick={() => { props.unfollow(u.id) }}>follow</button>
-                        : <button onClick={() => { props.follow(u.id) }}>unfollow</button>}
+                        ? <button onClick={() => {
+                           axios.post(`https://social-network.samuraijs.com/api/1.0//follow/${u.id}`,
+                              {},
+                              {
+                                 withCredentials: true,
+                                 headers: {
+                                    'API-KEY': "b2490cca-10ae-448f-b952-86efed4b301f"
+                                 }
+                              })
+                              .then(response => {
+                                 if (response.data.resultCode === 0) {
+                                    props.unfollow(u.id)
+                                 }
+                              })
+                        }}>follow</button>
+
+                        : <button onClick={() => {
+                           axios.delete(`https://social-network.samuraijs.com/api/1.0//follow/${u.id}`,
+                              {
+                                 withCredentials: true,
+                                 headers: {
+                                    'API-KEY': "b2490cca-10ae-448f-b952-86efed4b301f"
+                                 }
+                              })
+                              .then(response => {
+                                 if (response.data.resultCode === 1) {
+                                    props.follow(u.id)
+                                 }
+                              })
+                        }
+                        }>unfollow</button>}
                   </div>
                </div>
                <div className={r.message}>

@@ -9,3 +9,12 @@
    height: 50px;
    margin: 0 0 0 20px;
 }
+.login-block {
+   display: inline;
+   position: relative;
+}
+.login {
+   position: absolute;
+   right: 50px;
+   top: 40px;
+}

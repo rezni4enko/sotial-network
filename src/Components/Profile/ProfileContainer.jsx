@@ -1,46 +1,34 @@
-import { addNewPostActionCreator, updateNewPostChangeActionCreator } from '../../redux/profileReducer';
+import { setProfile, postChange, addPost } from '../../redux/profileReducer';
 import Profile from './Profile';
 import { connect } from "react-redux";
 import * as axios from 'axios';
+import React from 'react';
+import { withRouter } from 'react-router-dom'
 
+class ProfileContainer extends React.Component {
+   componentDidMount() {
+      let userId = this.props.match.params.userId
+      if (!userId) userId = 2;
+      axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
+         .then(response => {
+            this.props.setProfile(response.data);
+         })
+   }
+   render() {
 
-// class ProfileContainer extends React.Component {
-//    componentDidMount() {
-//       this.props.toggleIsFetching(true)
-//       axios.get(`https://social-network.samuraijs.com/api/1.0/users/2`)
-//          .then(response => {
-//             this.props.toggleIsFetching(false)
-//             this.props.setProfile(response.data.items);
-//          })
-//    }
-// }
-
-
-// const ProfileContainer = (props) => {
-
-//    //    return (<Profile  {...props} profilePage={props.state.profilePage} />)
-//    // }
-
-
-
-
-const mapStateToProps = (state) => {
-   return {
-      profilePage: state.profilePage
+      return <Profile {...this.props} profilePage={this.props.profilePage} />
    }
 }
 
-// const mapDispatchToProps = (dispatch) => {
-//    return {
-//       addPost: () => {
-//          dispatch(addNewPostActionCreator());
-//       },
-//       postChange: (text) => {
-//          dispatch(updateNewPostChangeActionCreator(text));
-//       }
-//    }
-// }
+const mapStateToProps = (state) => {
 
-const ProfileContainer = connect(mapStateToProps)(Profile);
+   return ({
+      profilePage: state.profilePage
+   })
+}
 
-export default ProfileContainer;
+let WithUrlDataContainerComponent = withRouter(ProfileContainer);
+
+
+export default connect(mapStateToProps,
+   { setProfile, addPost, postChange })(WithUrlDataContainerComponent);
