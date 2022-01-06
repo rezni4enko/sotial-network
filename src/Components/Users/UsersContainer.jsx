@@ -1,23 +1,26 @@
 import React from "react";
 import { connect } from "react-redux";
 import Users from "./Users";
-import { follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching } from "../../redux/usersReducers";
+import { follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching, toggleIsFollowingProgress } from "../../redux/usersReducers";
 import * as axios from 'axios';
 import preloader from '../../img/1488.gif'
 import Preloader from "../common/Preloader/Preloader";
-import { usersAPI } from "../../api/api";
+import { usersAPI } from "../../api/API";
+import { getUsersThunkCreator } from '../../redux/usersReducers'
 
 class UsersComponent extends React.Component {
 
    componentDidMount() {
-      this.props.toggleIsFetching(true)
-      usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
-         .then(data => {
-            this.props.toggleIsFetching(false)
-            this.props.setUsers(data.items);
-            this.props.setTotalUsersCount(data.totalCount);
 
-         })
+      this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)
+      // this.props.toggleIsFetching(true)
+      // usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
+      //    .then(data => {
+      //       this.props.toggleIsFetching(false)
+      //       this.props.setUsers(data.items);
+      //       this.props.setTotalUsersCount(data.totalCount);
+
+      //    })
    }
    onPageChanged = (pageNumber) => {
       {
@@ -31,6 +34,7 @@ class UsersComponent extends React.Component {
       }
    }
    render() {
+
       return <>
          {this.props.isFetching ? <Preloader /> : null}
          <Users
@@ -41,6 +45,7 @@ class UsersComponent extends React.Component {
             usersData={this.props.usersData}
             unfollow={this.props.unfollow}
             follow={this.props.follow}
+            followingInProgress={this.props.followingInProgress}
          />
       </>
    }
@@ -56,6 +61,7 @@ let mapStateToProps = (state) => {
       currentPage: state.usersPage.currentPage,
       totalUsersCount: state.usersPage.totalUsersCount,
       isFetching: state.usersPage.isFetching,
+      followingInProgress: state.usersPage.followingInProgress,
    }
 
 }
@@ -88,5 +94,7 @@ export default connect(mapStateToProps, {
    setUsers,
    setCurrentPage,
    setTotalUsersCount,
-   toggleIsFetching
+   toggleIsFetching,
+   toggleIsFollowingProgress,
+   getUsersThunkCreator
 })(UsersComponent);
