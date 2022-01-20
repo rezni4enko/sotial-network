@@ -15,9 +15,9 @@ const Messages = (props) => {
       props.changeMessage(text)
    }
 
-   if (!props.isAuth) {
-      return <Redirect to={'/login'} />
-   }
+   // if (!props.isAuth) {
+   //    return <Redirect to={'/login'} />
+   // }
 
    return (
       <div className={n.wrapperMessages}>

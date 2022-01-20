@@ -1,8 +1,11 @@
-import { usersAPI } from "../api/API";
+import { usersAPI, profileAPI } from "../api/API";
 
 const ADD_NEW_POST = 'ADD-NEW-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_PROFILE = 'SET_PROFILE'
+const SET_PROFILE_STATUS = 'SET_PROFILE_STATUS'
+const UPDATE_PROFILE_STATUS = 'UPDATE_PROFILE_STATUS'
+
 
 let initialState = {
    postsData: [
@@ -12,7 +15,8 @@ let initialState = {
       { name: 'Vova', message: 'sometimes', likesCount: '17' },
    ],
    newPostText: 'it-kamasutra',
-   profile: null
+   profile: null,
+   status: ''
 }
 const profileReducer = (state = initialState, action) => {
 
@@ -38,6 +42,17 @@ const profileReducer = (state = initialState, action) => {
          return {
             ...state, profile: action.profile
          }
+      case SET_PROFILE_STATUS:
+
+         return {
+            ...state, status: action.status
+         }
+      case UPDATE_PROFILE_STATUS:
+
+         return {
+            ...state,
+            newStatus: action.status
+         }
 
       default:
          return state;
@@ -47,11 +62,33 @@ const profileReducer = (state = initialState, action) => {
 export const addPost = () => ({ type: ADD_NEW_POST })
 export const postChange = (text) => ({ type: UPDATE_NEW_POST_TEXT, newText: text })
 export const setProfile = (profile) => ({ type: SET_PROFILE, profile: profile })
+export const setProfileStatus = (status) => ({ type: SET_PROFILE_STATUS, status: status })
+export const statusChange = (text) => ({ type: UPDATE_PROFILE_STATUS, newText: text })
+
+
 
 export const getUserProfile = (userId) => (dispatch) => {
    usersAPI.getProfile(userId).then(response => {
       dispatch(setProfile(response.data))
    })
 }
+
+export const getUserProfileStatus = (userId) => (dispatch) => {
+   profileAPI.getStatus(userId).then(response => {
+
+      dispatch(setProfileStatus(response.data))
+   })
+}
+
+export const getUpdateStatus = (status) => (dispatch) => {
+   profileAPI.updateStatus(status).then(response => {
+
+
+      if (response.data.resultCode === 0) {
+         dispatch(setProfileStatus(status))
+      }
+   })
+}
+
 
 export default profileReducer;
